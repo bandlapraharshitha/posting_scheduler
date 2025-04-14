@@ -4,7 +4,7 @@ const scheduledPostSchema = new mongoose.Schema({
   username: String,
   image: String,
   caption: String,
-  scheduledTime: String,
+  scheduledTime: Date,  // Keep scheduledTime here
   postedTime: Date
 });
 

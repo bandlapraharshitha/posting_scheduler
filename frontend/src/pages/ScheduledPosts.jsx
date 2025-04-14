@@ -25,10 +25,13 @@ const ScheduledPosts = () => {
     return date.toLocaleString("en-IN", {
       day: "numeric",
       month: "long",
+      year: "numeric",  // Add the year for completeness
       hour: "2-digit",
       minute: "2-digit",
+      hour12: true,  // If you want AM/PM format
     });
   };
+  
 
   return (
     <div className="p-4">
