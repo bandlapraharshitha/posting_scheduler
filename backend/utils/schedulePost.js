@@ -29,7 +29,11 @@ const scheduleInstagramPost = async ({ username, password, imagePath, caption, s
     }
   });
 
-  await Post.create({ username, imagePath, caption, scheduledAt });
+  // ✅ Avoid duplicate entry
+  const existing = await Post.findOne({ imagePath });
+  if (!existing) {
+    await Post.create({ username, imagePath, caption, scheduledAt });
+  }
 
   task.start();
 };
