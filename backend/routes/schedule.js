@@ -35,4 +35,15 @@ router.post("/schedule", upload.single("image"), async (req, res) => {
   }
 });
 
+// Fetch all scheduled posts
+router.get("/scheduled-posts", async (req, res) => {
+  try {
+    const posts = await Post.find({ status: "scheduled" }).sort({ scheduledAt: 1 });
+    res.json({ success: true, posts });
+  } catch (error) {
+    res.status(500).json({ success: false, error: "Failed to fetch scheduled posts" });
+  }
+});
+
+
 module.exports = router;

@@ -10,7 +10,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<SchedulePost />} />
-        <Route path="/scheduled" element={<ScheduledPosts />} />
+        <Route path="/scheduled-posts" element={<ScheduledPosts />} />
         <Route path="/history" element={<History />} />
       </Routes>
     </Router>
