@@ -43,7 +43,7 @@ const ScheduledPosts = () => {
               className="border rounded-xl shadow-md p-4 bg-white"
             >
               <img
-                src={`http://localhost:4000/${post.imagePath}`}
+                src={`http://localhost:4000/uploads/${post.imagePath}`}
                 alt="Scheduled"
                 className="w-full h-64 object-cover rounded-md mb-2"
               />
