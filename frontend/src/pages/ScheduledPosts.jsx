@@ -3,21 +3,28 @@ import React, { useEffect, useState } from "react";
 const ScheduledPosts = () => {
   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const res = await fetch("http://localhost:4000/api/scheduled-posts");
-        const data = await res.json();
-        if (data.success) {
-          setPosts(data.posts);
-        } else {
-          console.error("Error fetching posts:", data.error);
-        }
-      } catch (err) {
-        console.error("Error:", err);
+  const fetchPosts = async () => {
+    try {
+      const res = await fetch("http://localhost:4000/api/scheduled-posts");
+      const data = await res.json();
+      if (data.success) {
+        setPosts(data.posts);
+      } else {
+        console.error("Error fetching posts:", data.error);
       }
-    };
-    fetchPosts();
+    } catch (err) {
+      console.error("Error:", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchPosts(); // Initial fetch
+
+    const interval = setInterval(() => {
+      fetchPosts(); // Auto-refresh every 5 seconds
+    }, 5000);
+
+    return () => clearInterval(interval); // Cleanup on unmount
   }, []);
 
   const formatDateTime = (isoString) => {
@@ -25,13 +32,12 @@ const ScheduledPosts = () => {
     return date.toLocaleString("en-IN", {
       day: "numeric",
       month: "long",
-      year: "numeric",  // Add the year for completeness
+      year: "numeric",
       hour: "2-digit",
       minute: "2-digit",
-      hour12: true,  // If you want AM/PM format
+      hour12: true,
     });
   };
-  
 
   return (
     <div className="p-4">

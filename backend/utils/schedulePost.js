@@ -21,7 +21,11 @@ const scheduleInstagramPost = async ({ username, password, imagePath, caption, s
         caption,
       });
 
-      await Post.updateOne({ imagePath }, { postedAt: new Date(), status: "posted" });
+      // ✅ Mark the post as "posted" and set postedAt
+      await Post.updateOne(
+        { imagePath },
+        { $set: { status: "posted", postedAt: new Date() } }
+      );
 
       console.log("✅ Instagram post published");
     } catch (err) {
@@ -29,10 +33,17 @@ const scheduleInstagramPost = async ({ username, password, imagePath, caption, s
     }
   });
 
-  // ✅ Avoid duplicate entry
+  // ✅ No need to recreate post if already exists
   const existing = await Post.findOne({ imagePath });
   if (!existing) {
-    await Post.create({ username, imagePath, caption, scheduledAt });
+    await Post.create({
+      username,
+      password,
+      imagePath,
+      caption,
+      scheduledAt,
+      status: "scheduled",
+    });
   }
 
   task.start();
