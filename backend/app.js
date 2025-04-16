@@ -4,6 +4,8 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const scheduleRoutes = require("./routes/schedule");
 const historyRoute = require("./routes/history");
+const analyticsRoutes = require("./routes/analytics");
+
 
 dotenv.config();
 
@@ -12,6 +14,7 @@ app.use(cors());
 app.use("/uploads", express.static("uploads"));
 app.use("/api", scheduleRoutes);
 app.use("/api/history", historyRoute);
+app.use("/api/analytics", analyticsRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)

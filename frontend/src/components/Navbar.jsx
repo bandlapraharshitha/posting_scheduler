@@ -6,6 +6,7 @@ function Navbar() {
       <Link to="/">Schedule Post</Link>
       <Link to="/scheduled-posts">Scheduled Posts</Link>
       <Link to="/history">History</Link>
+      <Link to="/analytics">Analytics</Link>
     </nav>
   );
 }
